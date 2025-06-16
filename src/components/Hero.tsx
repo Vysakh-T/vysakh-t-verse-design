@@ -31,7 +31,7 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white">
-      {/* Enhanced Parallax background elements */}
+      {/* Enhanced Parallax background elements with individual movement */}
       <div className="absolute inset-0 overflow-hidden">
         <div 
           className="absolute top-1/4 left-1/4 w-2 h-96 bg-gradient-to-b from-primary/20 to-transparent rotate-45"
@@ -94,8 +94,8 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Enhanced CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-8 justify-center items-center mb-12">
+        {/* Single CTA Button */}
+        <div className="flex justify-center items-center mb-12">
           <Button 
             size="lg" 
             className="bg-primary text-white hover:bg-primary/90 font-mono font-bold px-12 py-6 text-xl tracking-wider hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-primary/25"
@@ -106,15 +106,6 @@ const Hero = () => {
             }}
           >
             EXPLORE WORK
-          </Button>
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="border-2 border-black text-black hover:bg-black hover:text-white font-mono font-bold px-12 py-6 text-xl tracking-wider hover:scale-110 transition-all duration-300"
-            onClick={() => scrollToSection('contact')}
-            style={{ transform: `translateY(${scrollY * -0.02}px)` }}
-          >
-            GET IN TOUCH
           </Button>
         </div>
 
@@ -153,7 +144,7 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Additional floating geometric elements */}
+      {/* Additional floating geometric elements with individual parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
           className="absolute top-1/4 left-1/6 w-2 h-2 bg-primary/30 rounded-full"
@@ -175,3 +166,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

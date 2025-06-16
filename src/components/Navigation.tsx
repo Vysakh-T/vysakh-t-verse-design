@@ -28,16 +28,16 @@ const Navigation = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-background/80 backdrop-blur-md border-b border-border/50' 
+        ? 'bg-white/80 backdrop-blur-md border-b border-black/10' 
         : 'bg-transparent'
     }`}>
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <button 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-xl font-bold gradient-text hover:scale-105 transition-transform"
+            className="modern-text text-2xl md:text-3xl font-black text-black hover:text-primary transition-colors duration-300 hover:scale-105 transition-transform"
           >
-            Vysakh T
+            VYSAKH T
           </button>
 
           <div className="hidden md:flex space-x-8">
@@ -45,7 +45,7 @@ const Navigation = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium"
+                className="text-black/60 hover:text-primary transition-colors duration-200 font-medium text-lg"
               >
                 {item.name}
               </button>
@@ -56,9 +56,9 @@ const Navigation = () => {
             onClick={() => scrollToSection('contact')}
             variant="outline"
             size="sm"
-            className="border-primary/50 hover:bg-primary/10"
+            className="border-primary/50 hover:bg-primary/10 font-mono"
           >
-            Let's Talk
+            Contact
           </Button>
         </div>
       </div>
@@ -67,3 +67,4 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
