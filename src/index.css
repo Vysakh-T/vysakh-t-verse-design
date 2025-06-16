@@ -5,35 +5,35 @@
 
 @layer base {
   :root {
-    --background: 0 0% 3%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 98%;
+    --foreground: 0 0% 3%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 280 100% 60%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 0 0% 18%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 95%;
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
+    --ring: 280 100% 60%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 }
 
@@ -45,17 +45,18 @@
   body {
     @apply bg-white text-black font-mono antialiased;
     cursor: none;
+    font-size: 16px;
   }
 
   html {
     scroll-behavior: smooth;
   }
 
-  /* Custom cursor */
+  /* Enhanced Custom cursor */
   .cursor-dot {
-    width: 8px;
-    height: 8px;
-    background: black;
+    width: 6px;
+    height: 6px;
+    background: hsl(var(--primary));
     border-radius: 50%;
     position: fixed;
     top: 0;
@@ -67,9 +68,9 @@
   }
 
   .cursor-outline {
-    width: 32px;
-    height: 32px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    width: 24px;
+    height: 24px;
+    border: 1px solid hsl(var(--primary));
     border-radius: 50%;
     position: fixed;
     top: 0;
@@ -81,49 +82,58 @@
 }
 
 @layer components {
-  .parallax-text {
-    transform: translateZ(0);
-    will-change: transform;
+  .parallax-container {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 1px;
   }
-  
+
+  .parallax-element {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .parallax-back {
+    transform: translateZ(-1px) scale(2);
+  }
+
+  .parallax-base {
+    transform: translateZ(0);
+  }
+
   .gradient-text {
-    @apply bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-black via-primary to-black bg-clip-text text-transparent;
     background-size: 200% auto;
-    animation: shimmer 3s linear infinite;
+    animation: shimmer 4s linear infinite;
   }
 
   .glass-effect {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-white/10 backdrop-blur-xl border border-black/10;
   }
 
-  .noise-bg {
-    background-image: 
-      radial-gradient(circle at 1px 1px, rgba(255,255,255,.15) 1px, transparent 0);
-    background-size: 20px 20px;
+  .modern-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
   }
 
-  .reveal-text {
-    background: linear-gradient(90deg, transparent 0%, white 50%, transparent 100%);
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: reveal 2s ease-in-out;
+  .code-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
 
-  .floating-text {
-    animation: float-text 6s ease-in-out infinite;
+  .floating-elements {
+    animation: float-complex 8s ease-in-out infinite;
   }
 
-  .terminal-text {
-    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-    letter-spacing: -0.025em;
-  }
-}
-
-@layer utilities {
-  .text-shadow {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  .text-shadow-primary {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.3);
   }
 }
 
@@ -132,32 +142,21 @@
   100% { background-position: 200% 0; }
 }
 
-@keyframes reveal {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+@keyframes float-complex {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+  25% { transform: translateY(-15px) rotate(2deg) scale(1.02); }
+  50% { transform: translateY(-8px) rotate(-1deg) scale(0.98); }
+  75% { transform: translateY(-12px) rotate(1deg) scale(1.01); }
 }
 
-@keyframes float-text {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-10px) rotate(1deg); }
-  66% { transform: translateY(5px) rotate(-1deg); }
+@keyframes parallax-drift {
+  0% { transform: translateX(0) translateY(0); }
+  33% { transform: translateX(-10px) translateY(-5px); }
+  66% { transform: translateX(10px) translateY(5px); }
+  100% { transform: translateX(0) translateY(0); }
 }
 
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes blink {
-  0%, 50% { border-color: transparent; }
-  51%, 100% { border-color: white; }
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+  50% { box-shadow: 0 0 40px hsl(var(--primary) / 0.6); }
 }

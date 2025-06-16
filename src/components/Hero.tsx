@@ -31,96 +31,144 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white">
-      {/* Parallax background elements */}
+      {/* Enhanced Parallax background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div 
-          className="absolute top-1/4 left-1/4 w-1 h-96 bg-black/10 rotate-45"
-          style={{ transform: `translateY(${scrollY * 0.5}px) rotate(45deg)` }}
+          className="absolute top-1/4 left-1/4 w-2 h-96 bg-gradient-to-b from-primary/20 to-transparent rotate-45"
+          style={{ transform: `translateY(${scrollY * 0.8}px) rotate(45deg)` }}
         />
         <div 
-          className="absolute bottom-1/4 right-1/4 w-1 h-64 bg-black/5 -rotate-45"
-          style={{ transform: `translateY(${scrollY * -0.3}px) rotate(-45deg)` }}
+          className="absolute bottom-1/4 right-1/4 w-2 h-64 bg-gradient-to-t from-primary/30 to-transparent -rotate-45"
+          style={{ transform: `translateY(${scrollY * -0.6}px) rotate(-45deg)` }}
         />
         <div 
-          className="absolute top-1/2 left-1/2 w-px h-32 bg-black/20"
-          style={{ transform: `translate(-50%, -50%) translateY(${scrollY * 0.2}px)` }}
+          className="absolute top-1/2 left-1/2 w-1 h-48 bg-primary/40"
+          style={{ transform: `translate(-50%, -50%) translateY(${scrollY * 0.4}px)` }}
+        />
+        <div 
+          className="absolute top-1/3 right-1/3 w-32 h-32 border border-primary/20 rounded-full"
+          style={{ transform: `translateY(${scrollY * 0.3}px) rotate(${scrollY * 0.1}deg)` }}
+        />
+        <div 
+          className="absolute bottom-1/3 left-1/3 w-16 h-16 bg-primary/10 rounded-full"
+          style={{ transform: `translateY(${scrollY * -0.4}px)` }}
         />
       </div>
 
-      {/* Large background name */}
+      {/* Large background name with parallax */}
       <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
         <div 
-          className="font-mono text-[15vw] md:text-[12vw] font-bold text-black/5 select-none"
-          style={{ transform: `translateY(${scrollY * 0.1}px)` }}
+          className="modern-text text-[20vw] md:text-[15vw] lg:text-[12vw] font-black text-black/8 select-none"
+          style={{ 
+            transform: `translateY(${scrollY * 0.2}px) scale(${1 + scrollY * 0.0002})`,
+            letterSpacing: '-0.05em'
+          }}
         >
           VYSAKH T
         </div>
       </div>
 
-      <div className="text-center z-10 px-4 max-w-4xl">
-        {/* Main rotating title - This is now the hero */}
-        <div className="mb-16">
-          <div className="font-sans text-5xl md:text-7xl font-bold text-black mb-8 tracking-tight">
-            <span className="inline-block transition-all duration-500 ease-in-out">
+      <div className="text-center z-10 px-6 max-w-6xl">
+        {/* Main rotating title - Enhanced with bigger fonts */}
+        <div className="mb-12">
+          <div className="modern-text text-6xl md:text-8xl lg:text-9xl font-black text-black mb-6 tracking-tighter relative">
+            <span 
+              className="inline-block transition-all duration-700 ease-out text-shadow-primary"
+              style={{ transform: `translateY(${scrollY * -0.1}px)` }}
+            >
               {titles[currentTitle]}
             </span>
+            <div className="absolute -top-4 -right-4 w-4 h-4 bg-primary rounded-full animate-pulse"></div>
           </div>
           
-          {/* Subtitle */}
-          <div className="font-mono text-lg md:text-xl text-black/60 max-w-2xl mx-auto leading-relaxed">
-            Crafting digital experiences through code, music, words & design.
+          {/* Enhanced Subtitle */}
+          <div 
+            className="code-text text-xl md:text-2xl lg:text-3xl text-black/70 max-w-4xl mx-auto leading-relaxed"
+            style={{ transform: `translateY(${scrollY * -0.05}px)` }}
+          >
+            Crafting digital experiences through{' '}
+            <span className="text-primary font-semibold">code</span>,{' '}
+            <span className="text-primary font-semibold">music</span>,{' '}
+            <span className="text-primary font-semibold">words</span> &{' '}
+            <span className="text-primary font-semibold">design</span>.
           </div>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+        {/* Enhanced CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-8 justify-center items-center mb-12">
           <Button 
             size="lg" 
-            className="bg-black text-white hover:bg-black/90 font-mono font-semibold px-8 py-4 text-lg tracking-wider hover:scale-105 transition-all duration-200"
+            className="bg-primary text-white hover:bg-primary/90 font-mono font-bold px-12 py-6 text-xl tracking-wider hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-primary/25"
             onClick={() => scrollToSection('about')}
+            style={{ 
+              transform: `translateY(${scrollY * -0.02}px)`,
+              animation: 'glow-pulse 3s ease-in-out infinite'
+            }}
           >
             EXPLORE WORK
           </Button>
           <Button 
             variant="outline" 
             size="lg" 
-            className="border-2 border-black text-black hover:bg-black hover:text-white font-mono font-semibold px-8 py-4 text-lg tracking-wider hover:scale-105 transition-all duration-200"
+            className="border-2 border-black text-black hover:bg-black hover:text-white font-mono font-bold px-12 py-6 text-xl tracking-wider hover:scale-110 transition-all duration-300"
             onClick={() => scrollToSection('contact')}
+            style={{ transform: `translateY(${scrollY * -0.02}px)` }}
           >
             GET IN TOUCH
           </Button>
         </div>
 
-        {/* Minimal scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 font-mono text-black/40 text-sm">
+        {/* Enhanced scroll indicator */}
+        <div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 font-mono text-black/40 text-sm"
+          style={{ transform: `translateX(-50%) translateY(${scrollY * -0.1}px)` }}
+        >
           <div className="animate-bounce">
-            <div className="w-6 h-10 border-2 border-black/20 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-black/40 rounded-full mt-2 animate-pulse"></div>
+            <div className="w-8 h-12 border-2 border-primary/40 rounded-full flex justify-center relative">
+              <div className="w-1 h-4 bg-primary rounded-full mt-2 animate-pulse"></div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Floating elements */}
+      {/* Enhanced Floating elements with more movement */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(3)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="absolute font-mono text-xs text-black/10 whitespace-nowrap"
+            className="absolute code-text text-sm text-black/15 whitespace-nowrap floating-elements"
             style={{
-              left: `${(i * 30) + 10}%`,
-              top: `${(i * 20) + 20}%`,
-              animationDuration: `${6 + i * 2}s`,
-              animationDelay: `${i * 1}s`,
+              left: `${(i * 25) + 5}%`,
+              top: `${(i * 15) + 15}%`,
+              animationDuration: `${8 + i * 2}s`,
+              animationDelay: `${i * 1.5}s`,
+              transform: `translateY(${scrollY * (0.1 + i * 0.05)}px)`,
             }}
           >
-            <div className="animate-float">
-              {i === 0 && 'function create() { return magic; }'}
-              {i === 1 && '// Building dreams with code'}
-              {i === 2 && 'const passion = true;'}
-            </div>
+            {i === 0 && <><span className="text-primary">function</span> create() {'{ return '}<span className="text-primary">magic</span>{'; }'}</>}
+            {i === 1 && <><span className="text-primary">//</span> Building dreams with code</>}
+            {i === 2 && <><span className="text-primary">const</span> passion = <span className="text-primary">true</span>;</>}
+            {i === 3 && <><span className="text-primary">while</span>(creating) {'{ inspire(); }'}</>}
           </div>
         ))}
+      </div>
+
+      {/* Additional floating geometric elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div 
+          className="absolute top-1/4 left-1/6 w-2 h-2 bg-primary/30 rounded-full"
+          style={{ 
+            transform: `translateY(${scrollY * 0.6}px) translateX(${Math.sin(scrollY * 0.01) * 10}px)`,
+            animation: 'parallax-drift 12s ease-in-out infinite'
+          }}
+        />
+        <div 
+          className="absolute bottom-1/3 right-1/5 w-3 h-3 border border-primary/40 rotate-45"
+          style={{ 
+            transform: `translateY(${scrollY * -0.5}px) translateX(${Math.cos(scrollY * 0.008) * 15}px) rotate(${45 + scrollY * 0.1}deg)`,
+            animation: 'parallax-drift 15s ease-in-out infinite reverse'
+          }}
+        />
       </div>
     </section>
   );
