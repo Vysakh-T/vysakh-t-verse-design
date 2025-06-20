@@ -129,12 +129,14 @@ const Skills = () => {
                         backgroundColor: `${primaryColor}08`
                       }}
                       onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = `${primaryColor}15`;
-                        e.target.style.borderColor = `${primaryColor}40`;
+                        const target = e.target as HTMLElement;
+                        target.style.backgroundColor = `${primaryColor}15`;
+                        target.style.borderColor = `${primaryColor}40`;
                       }}
                       onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = `${primaryColor}08`;
-                        e.target.style.borderColor = `${primaryColor}20`;
+                        const target = e.target as HTMLElement;
+                        target.style.backgroundColor = `${primaryColor}08`;
+                        target.style.borderColor = `${primaryColor}20`;
                       }}
                     >
                       {item}
