@@ -34,6 +34,9 @@
     --ring: 280 100% 60%;
 
     --radius: 0.5rem;
+    
+    /* Dynamic primary color */
+    --current-primary: #8B5CF6;
   }
 }
 
@@ -56,7 +59,7 @@
   .cursor-dot {
     width: 6px;
     height: 6px;
-    background: hsl(var(--primary));
+    background: var(--current-primary);
     border-radius: 50%;
     position: fixed;
     top: 0;
@@ -64,20 +67,20 @@
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: difference;
-    transition: transform 0.1s ease;
+    transition: all 0.3s ease;
   }
 
   .cursor-outline {
     width: 24px;
     height: 24px;
-    border: 1px solid hsl(var(--primary));
+    border: 1px solid var(--current-primary);
     border-radius: 50%;
     position: fixed;
     top: 0;
     left: 0;
     pointer-events: none;
     z-index: 9998;
-    transition: all 0.15s ease;
+    transition: all 0.3s ease;
   }
 }
 
@@ -133,7 +136,7 @@
   }
 
   .text-shadow-primary {
-    text-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    text-shadow: 0 0 20px var(--current-primary);
   }
 }
 
@@ -157,6 +160,11 @@
 }
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
-  50% { box-shadow: 0 0 40px hsl(var(--primary) / 0.6); }
+  0%, 100% { box-shadow: 0 0 20px var(--current-primary); }
+  50% { box-shadow: 0 0 40px var(--current-primary); }
+}
+
+/* Smooth transitions for all dynamic elements */
+* {
+  transition: background-color 0.7s ease, border-color 0.7s ease, color 0.7s ease, box-shadow 0.7s ease;
 }
