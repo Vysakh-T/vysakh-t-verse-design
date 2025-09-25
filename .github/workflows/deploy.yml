@@ -36,8 +36,6 @@ jobs:
 
     - name: Build
       run: npm run build
-      env:
-        GITHUB_REPOSITORY: ${{ github.repository }}
 
     - name: Add .nojekyll file
       run: touch dist/.nojekyll
