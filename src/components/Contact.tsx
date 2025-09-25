@@ -5,13 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin, Instagram } from "lucide-react";
 
 const Contact = () => {
-  const [primaryColor, setPrimaryColor] = useState('#8B5CF6');
+  const [primaryColor, setPrimaryColor] = useState('hsl(271, 91%, 65%)');
 
   useEffect(() => {
     // Listen for aspect changes
     const updateColor = () => {
       const color = getComputedStyle(document.documentElement).getPropertyValue('--current-primary');
-      setPrimaryColor(color.trim() || '#8B5CF6');
+      setPrimaryColor(color.trim() || 'hsl(271, 91%, 65%)');
     };
 
     // Check for changes periodically
@@ -165,7 +165,7 @@ const Contact = () => {
                       animationDelay: '0.2s' 
                     }}
                   ></span>
-                  Recording new acoustic pieces
+                  Creating stunning visual designs
                 </p>
                 <p className="flex items-center">
                   <span 
@@ -175,17 +175,7 @@ const Contact = () => {
                       animationDelay: '0.4s' 
                     }}
                   ></span>
-                  Writing poetry about modern life
-                </p>
-                <p className="flex items-center">
-                  <span 
-                    className="w-2 h-2 rounded-full mr-3 animate-pulse"
-                    style={{ 
-                      backgroundColor: primaryColor,
-                      animationDelay: '0.6s' 
-                    }}
-                  ></span>
-                  Exploring new design trends
+                  Exploring creative art forms
                 </p>
               </div>
             </div>

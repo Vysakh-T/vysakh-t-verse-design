@@ -8,34 +8,26 @@ const aspects = [
   {
     title: 'DEVELOPER',
     subtitle: 'Crafting digital experiences through modern code',
-    primaryColor: '#8B5CF6', // Purple
+    primaryColor: 'hsl(271, 91%, 65%)', // Purple
     bgGradient: 'from-purple-500/20 to-blue-500/20',
     textGradient: 'from-purple-600 to-blue-600',
     glowColor: 'shadow-purple-500/25'
   },
   {
-    title: 'SINGER-GUITARIST',
-    subtitle: 'Creating melodies that touch the soul',
-    primaryColor: '#EC4899', // Pink
-    bgGradient: 'from-pink-500/20 to-rose-500/20',
-    textGradient: 'from-pink-600 to-rose-600',
-    glowColor: 'shadow-pink-500/25'
-  },
-  {
-    title: 'POET',
-    subtitle: 'Weaving words into profound narratives',
-    primaryColor: '#10B981', // Emerald
-    bgGradient: 'from-emerald-500/20 to-teal-500/20',
-    textGradient: 'from-emerald-600 to-teal-600',
-    glowColor: 'shadow-emerald-500/25'
-  },
-  {
     title: 'DESIGNER',
     subtitle: 'Shaping visual experiences that inspire',
-    primaryColor: '#F59E0B', // Amber
+    primaryColor: 'hsl(43, 96%, 56%)', // Amber
     bgGradient: 'from-amber-500/20 to-orange-500/20',
     textGradient: 'from-amber-600 to-orange-600',
     glowColor: 'shadow-amber-500/25'
+  },
+  {
+    title: 'ARTIST',
+    subtitle: 'Creating beauty that touches the soul',
+    primaryColor: 'hsl(332, 84%, 57%)', // Pink
+    bgGradient: 'from-pink-500/20 to-rose-500/20',
+    textGradient: 'from-pink-600 to-rose-600',
+    glowColor: 'shadow-pink-500/25'
   }
 ];
 
@@ -161,7 +153,7 @@ const Hero = () => {
                   transform: `translateY(${scrollY * -0.01}px)`
                 }}
               >
-                Select Aspect <ChevronDown size={16} className="ml-2" />
+                🎭 <ChevronDown size={16} className="ml-2" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">

@@ -8,23 +8,17 @@ const aspectContent = {
     quote: "In code, we find the poetry of logic and the art of problem-solving.",
     skills: ["React & TypeScript", "Node.js & Python", "Cloud Architecture", "System Design"]
   },
-  1: { // Singer-Guitarist
-    title: "Musical Storyteller", 
-    description: "Crafting melodies that resonate with the human experience.",
-    quote: "Music is the universal language that speaks directly to the soul.",
-    skills: ["Acoustic Guitar", "Vocal Performance", "Songwriting", "Live Performance"]
-  },
-  2: { // Poet
-    title: "Word Weaver",
-    description: "Capturing life's essence through contemporary verse and spoken word.",
-    quote: "Poetry transforms ordinary moments into extraordinary revelations.",
-    skills: ["Contemporary Poetry", "Spoken Word", "Literary Analysis", "Creative Writing"]
-  },
-  3: { // Designer
+  1: { // Designer
     title: "Visual Innovator",
     description: "Creating compelling visual narratives that inspire and engage.",
     quote: "Design is not just how it looks, but how it makes you feel.",
     skills: ["UI/UX Design", "Brand Identity", "Visual Storytelling", "Creative Direction"]
+  },
+  2: { // Artist
+    title: "Creative Storyteller",
+    description: "Expressing life through multiple art forms and creative mediums.",
+    quote: "Art is the bridge between what is and what could be.",
+    skills: ["Digital Art", "Music & Performance", "Creative Writing", "Multimedia Design"]
   }
 };
 
@@ -44,10 +38,9 @@ const About = () => {
       const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary');
       // Map colors back to aspects
       const colorMap = {
-        '#8B5CF6': 0, // Purple - Developer
-        '#EC4899': 1, // Pink - Singer
-        '#10B981': 2, // Emerald - Poet
-        '#F59E0B': 3  // Amber - Designer
+        'hsl(271, 91%, 65%)': 0, // Purple - Developer
+        'hsl(43, 96%, 56%)': 1, // Amber - Designer  
+        'hsl(332, 84%, 57%)': 2  // Pink - Artist
       };
       const aspectIndex = colorMap[primaryColor.trim()] || 0;
       setCurrentAspect(aspectIndex);
@@ -59,7 +52,7 @@ const About = () => {
   }, []);
 
   const content = aspectContent[currentAspect];
-  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary') || '#8B5CF6';
+  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary') || 'hsl(271, 91%, 65%)';
 
   return (
     <section id="about" className="py-16 px-6 relative bg-gradient-to-b from-white to-gray-50/50 overflow-hidden">

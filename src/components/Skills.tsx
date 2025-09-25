@@ -14,29 +14,7 @@ const skillsData = {
       { name: "Mobile", skills: ["React Native", "Flutter", "iOS", "Android"] }
     ]
   },
-  1: { // Singer-Guitarist
-    title: "Singer-Guitarist",
-    description: "Musical storytelling through voice and strings",
-    icon: "🎸",
-    details: [
-      { name: "Performance", skills: ["Live Shows", "Studio Recording", "Acoustic Sets", "Open Mics"] },
-      { name: "Composition", skills: ["Songwriting", "Melody Creation", "Lyric Writing", "Arrangement"] },
-      { name: "Instruments", skills: ["Acoustic Guitar", "Electric Guitar", "Vocals", "Harmonica"] },
-      { name: "Genres", skills: ["Folk", "Indie", "Alternative", "Contemporary"] }
-    ]
-  },
-  2: { // Poet
-    title: "Poet",
-    description: "Weaving emotions into words and verses",
-    icon: "✍️",
-    details: [
-      { name: "Writing", skills: ["Contemporary Poetry", "Free Verse", "Narrative Poetry", "Micro Poetry"] },
-      { name: "Performance", skills: ["Spoken Word", "Poetry Slams", "Literary Events", "Open Readings"] },
-      { name: "Themes", skills: ["Modern Life", "Human Connection", "Nature", "Technology"] },
-      { name: "Publication", skills: ["Literary Magazines", "Anthologies", "Online Platforms", "Self-Publishing"] }
-    ]
-  },
-  3: { // Designer
+  1: { // Designer
     title: "Designer",
     description: "Creating visual experiences that inspire",
     icon: "🎨",
@@ -45,6 +23,17 @@ const skillsData = {
       { name: "Brand Identity", skills: ["Logo Design", "Brand Guidelines", "Visual Identity", "Typography"] },
       { name: "Creative", skills: ["Digital Art", "Illustration", "Motion Graphics", "Photography"] },
       { name: "Tools", skills: ["Figma", "Adobe Suite", "Sketch", "Principle"] }
+    ]
+  },
+  2: { // Artist
+    title: "Artist",
+    description: "Creative expression through multiple mediums",
+    icon: "🎭",
+    details: [
+      { name: "Digital Art", skills: ["Digital Painting", "3D Modeling", "Character Design", "Concept Art"] },
+      { name: "Music", skills: ["Guitar", "Vocals", "Songwriting", "Music Production"] },
+      { name: "Writing", skills: ["Poetry", "Creative Writing", "Storytelling", "Lyrics"] },
+      { name: "Performance", skills: ["Live Shows", "Spoken Word", "Art Exhibitions", "Creative Direction"] }
     ]
   }
 };
@@ -58,10 +47,9 @@ const Skills = () => {
       const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary');
       // Map colors back to aspects
       const colorMap = {
-        '#8B5CF6': 0, // Purple - Developer
-        '#EC4899': 1, // Pink - Singer
-        '#10B981': 2, // Emerald - Poet
-        '#F59E0B': 3  // Amber - Designer
+        'hsl(271, 91%, 65%)': 0, // Purple - Developer
+        'hsl(43, 96%, 56%)': 1, // Amber - Designer  
+        'hsl(332, 84%, 57%)': 2  // Pink - Artist
       };
       const aspectIndex = colorMap[primaryColor.trim()] || 0;
       setCurrentAspect(aspectIndex);
@@ -73,7 +61,7 @@ const Skills = () => {
   }, []);
 
   const skill = skillsData[currentAspect];
-  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary') || '#8B5CF6';
+  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary') || 'hsl(271, 91%, 65%)';
 
   return (
     <section id="skills" className="py-16 px-6 bg-white">
