@@ -1,67 +1,11 @@
 
-import { useState, useEffect } from 'react';
+import { useAspect } from "@/context/AspectContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const skillsData = {
-  0: { // Developer
-    title: "Developer",
-    description: "Full-stack development with modern technologies",
-    icon: "💻",
-    details: [
-      { name: "Frontend", skills: ["React", "TypeScript", "Next.js", "Tailwind CSS"] },
-      { name: "Backend", skills: ["Node.js", "Python", "PostgreSQL", "Redis"] },
-      { name: "Cloud", skills: ["AWS", "Docker", "Kubernetes", "CI/CD"] },
-      { name: "Mobile", skills: ["React Native", "Flutter", "iOS", "Android"] }
-    ]
-  },
-  1: { // Designer
-    title: "Designer",
-    description: "Creating visual experiences that inspire",
-    icon: "🎨",
-    details: [
-      { name: "Digital Design", skills: ["UI/UX Design", "Web Design", "App Design", "Prototyping"] },
-      { name: "Brand Identity", skills: ["Logo Design", "Brand Guidelines", "Visual Identity", "Typography"] },
-      { name: "Creative", skills: ["Digital Art", "Illustration", "Motion Graphics", "Photography"] },
-      { name: "Tools", skills: ["Figma", "Adobe Suite", "Sketch", "Principle"] }
-    ]
-  },
-  2: { // Artist
-    title: "Artist",
-    description: "Creative expression through multiple mediums",
-    icon: "🎭",
-    details: [
-      { name: "Digital Art", skills: ["Digital Painting", "3D Modeling", "Character Design", "Concept Art"] },
-      { name: "Music", skills: ["Guitar", "Vocals", "Songwriting", "Music Production"] },
-      { name: "Writing", skills: ["Poetry", "Creative Writing", "Storytelling", "Lyrics"] },
-      { name: "Performance", skills: ["Live Shows", "Spoken Word", "Art Exhibitions", "Creative Direction"] }
-    ]
-  }
-};
-
 const Skills = () => {
-  const [currentAspect, setCurrentAspect] = useState(0);
-
-  useEffect(() => {
-    // Listen for aspect changes from Hero component
-    const handleAspectChange = () => {
-      const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary');
-      // Map colors back to aspects
-      const colorMap = {
-        'hsl(271, 91%, 65%)': 0, // Purple - Developer
-        'hsl(43, 96%, 56%)': 1, // Amber - Designer  
-        'hsl(332, 84%, 57%)': 2  // Pink - Artist
-      };
-      const aspectIndex = colorMap[primaryColor.trim()] || 0;
-      setCurrentAspect(aspectIndex);
-    };
-
-    // Check for changes periodically
-    const interval = setInterval(handleAspectChange, 100);
-    return () => clearInterval(interval);
-  }, []);
-
-  const skill = skillsData[currentAspect];
-  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary') || 'hsl(271, 91%, 65%)';
+  const { aspect } = useAspect();
+  const skill = aspect.skills;
+  const primaryColor = aspect.theme.primaryColor;
 
   return (
     <section id="skills" className="py-16 px-6 bg-white">

@@ -1,23 +1,12 @@
 
-import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin, Instagram } from "lucide-react";
+import { useAspect } from "@/context/AspectContext";
 
 const Contact = () => {
-  const [primaryColor, setPrimaryColor] = useState('hsl(271, 91%, 65%)');
-
-  useEffect(() => {
-    // Listen for aspect changes
-    const updateColor = () => {
-      const color = getComputedStyle(document.documentElement).getPropertyValue('--current-primary');
-      setPrimaryColor(color.trim() || 'hsl(271, 91%, 65%)');
-    };
-
-    // Check for changes periodically
-    const interval = setInterval(updateColor, 100);
-    return () => clearInterval(interval);
-  }, []);
+  const { aspect } = useAspect();
+  const primaryColor = aspect.theme.primaryColor;
 
   const socialLinks = [
     {
