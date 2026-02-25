@@ -4,21 +4,38 @@ import { useEffect, useState } from 'react';
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isClicking, setIsClicking] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('input') ||
+        target.closest('[data-magnetic]')
+      ) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
+
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
 
     window.addEventListener('mousemove', updateMousePosition);
+    window.addEventListener('mouseover', handleMouseOver);
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
 
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
+      window.removeEventListener('mouseover', handleMouseOver);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
     };
@@ -35,7 +52,7 @@ const CustomCursor = () => {
         }}
       />
       <div
-        className="cursor-outline"
+        className={`cursor-outline ${isHovering ? 'hover-active' : ''}`}
         style={{
           left: `${mousePosition.x}px`,
           top: `${mousePosition.y}px`,

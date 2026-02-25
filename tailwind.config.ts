@@ -21,7 +21,8 @@ export default {
 		extend: {
 			fontFamily: {
 				'mono': ['JetBrains Mono', 'monospace'],
-				'sans': ['Space Grotesk', 'system-ui', 'sans-serif'],
+				'sans': ['Inter Tight', 'system-ui', 'sans-serif'],
+				'serif': ['EB Garamond', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -56,12 +57,16 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
-				}
+				},
+				// Entity Accents
+				'monolith-engineer': '#2E5BFF',
+				'monolith-artist': '#39FF14',
+				'monolith-designer': '#FFF000',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				md: 'var(--radius)',
+				sm: 'var(--radius)'
 			},
 			keyframes: {
 				'accordion-down': {
