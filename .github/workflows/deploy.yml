@@ -39,7 +39,7 @@ jobs:
       run: bun install
 
     - name: Build
-      run: bun run build
+      run: bun run build --base=/${{ github.event.repository.name }}/
 
     - name: Add .nojekyll file
       run: touch dist/.nojekyll
