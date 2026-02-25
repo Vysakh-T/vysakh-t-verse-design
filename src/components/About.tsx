@@ -1,30 +1,10 @@
 
 import { useState, useEffect } from 'react';
-
-const aspectContent = {
-  0: { // Developer
-    title: "Code Architect",
-    description: "Passionate about creating scalable solutions and elegant user experiences.",
-    quote: "In code, we find the poetry of logic and the art of problem-solving.",
-    skills: ["React & TypeScript", "Node.js & Python", "Cloud Architecture", "System Design"]
-  },
-  1: { // Designer
-    title: "Visual Innovator",
-    description: "Creating compelling visual narratives that inspire and engage.",
-    quote: "Design is not just how it looks, but how it makes you feel.",
-    skills: ["UI/UX Design", "Brand Identity", "Visual Storytelling", "Creative Direction"]
-  },
-  2: { // Artist
-    title: "Creative Storyteller",
-    description: "Expressing life through multiple art forms and creative mediums.",
-    quote: "Art is the bridge between what is and what could be.",
-    skills: ["Digital Art", "Music & Performance", "Creative Writing", "Multimedia Design"]
-  }
-};
+import { useAspect } from "@/context/AspectContext";
 
 const About = () => {
+  const { aspect } = useAspect();
   const [scrollY, setScrollY] = useState(0);
-  const [currentAspect, setCurrentAspect] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -32,27 +12,8 @@ const About = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    // Listen for aspect changes from Hero component
-    const handleAspectChange = () => {
-      const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary');
-      // Map colors back to aspects
-      const colorMap = {
-        'hsl(271, 91%, 65%)': 0, // Purple - Developer
-        'hsl(43, 96%, 56%)': 1, // Amber - Designer  
-        'hsl(332, 84%, 57%)': 2  // Pink - Artist
-      };
-      const aspectIndex = colorMap[primaryColor.trim()] || 0;
-      setCurrentAspect(aspectIndex);
-    };
-
-    // Check for changes periodically
-    const interval = setInterval(handleAspectChange, 100);
-    return () => clearInterval(interval);
-  }, []);
-
-  const content = aspectContent[currentAspect];
-  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--current-primary') || 'hsl(271, 91%, 65%)';
+  const content = aspect.about;
+  const primaryColor = aspect.theme.primaryColor;
 
   return (
     <section id="about" className="py-16 px-6 relative bg-gradient-to-b from-white to-gray-50/50 overflow-hidden">

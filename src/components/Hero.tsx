@@ -3,36 +3,11 @@ import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Shuffle, ChevronDown } from "lucide-react";
-
-const aspects = [
-  {
-    title: 'DEVELOPER',
-    subtitle: 'Crafting digital experiences through modern code',
-    primaryColor: 'hsl(271, 91%, 65%)', // Purple
-    bgGradient: 'from-purple-500/20 to-blue-500/20',
-    textGradient: 'from-purple-600 to-blue-600',
-    glowColor: 'shadow-purple-500/25'
-  },
-  {
-    title: 'DESIGNER',
-    subtitle: 'Shaping visual experiences that inspire',
-    primaryColor: 'hsl(43, 96%, 56%)', // Amber
-    bgGradient: 'from-amber-500/20 to-orange-500/20',
-    textGradient: 'from-amber-600 to-orange-600',
-    glowColor: 'shadow-amber-500/25'
-  },
-  {
-    title: 'ARTIST',
-    subtitle: 'Creating beauty that touches the soul',
-    primaryColor: 'hsl(332, 84%, 57%)', // Pink
-    bgGradient: 'from-pink-500/20 to-rose-500/20',
-    textGradient: 'from-pink-600 to-rose-600',
-    glowColor: 'shadow-pink-500/25'
-  }
-];
+import { useAspect } from "@/context/AspectContext";
+import { ASPECTS } from "@/lib/constants";
 
 const Hero = () => {
-  const [currentAspect, setCurrentAspect] = useState(0);
+  const { currentAspectIndex, setCurrentAspectIndex, aspect } = useAspect();
   const [scrollY, setScrollY] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -42,26 +17,25 @@ const Hero = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    // Update CSS custom property for current primary color
-    document.documentElement.style.setProperty('--current-primary', aspects[currentAspect].primaryColor);
-  }, [currentAspect]);
-
   const randomizeAspect = () => {
     if (isAnimating) return;
     
     setIsAnimating(true);
-    const newAspect = Math.floor(Math.random() * aspects.length);
-    setCurrentAspect(newAspect);
+    let newAspect;
+    do {
+      newAspect = Math.floor(Math.random() * ASPECTS.length);
+    } while (newAspect === currentAspectIndex);
+
+    setCurrentAspectIndex(newAspect);
     
     setTimeout(() => setIsAnimating(false), 500);
   };
 
   const selectAspect = (index: number) => {
-    if (isAnimating) return;
+    if (isAnimating || index === currentAspectIndex) return;
     
     setIsAnimating(true);
-    setCurrentAspect(index);
+    setCurrentAspectIndex(index);
     
     setTimeout(() => setIsAnimating(false), 500);
   };
@@ -71,18 +45,16 @@ const Hero = () => {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const aspect = aspects[currentAspect];
-
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white">
       {/* Simplified Background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div 
-          className={`absolute top-1/4 left-1/4 w-1 h-64 bg-gradient-to-b ${aspect.bgGradient} rotate-45 transition-all duration-700`}
+          className={`absolute top-1/4 left-1/4 w-1 h-64 bg-gradient-to-b ${aspect.theme.bgGradient} rotate-45 transition-all duration-700`}
           style={{ transform: `translateY(${scrollY * 0.5}px) rotate(45deg)` }}
         />
         <div 
-          className={`absolute bottom-1/4 right-1/4 w-1 h-48 bg-gradient-to-t ${aspect.bgGradient} -rotate-45 transition-all duration-700`}
+          className={`absolute bottom-1/4 right-1/4 w-1 h-48 bg-gradient-to-t ${aspect.theme.bgGradient} -rotate-45 transition-all duration-700`}
           style={{ transform: `translateY(${scrollY * -0.3}px) rotate(-45deg)` }}
         />
       </div>
@@ -96,7 +68,7 @@ const Hero = () => {
             letterSpacing: '-0.05em'
           }}
         >
-          {aspect.title}
+          {aspect.hero.title}
         </div>
       </div>
 
@@ -107,20 +79,20 @@ const Hero = () => {
             className={`modern-text text-6xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter relative transition-all duration-700 ${isAnimating ? 'scale-105' : 'scale-100'}`}
             style={{ 
               transform: `translateY(${scrollY * -0.1}px)`,
-              background: `linear-gradient(to right, ${aspect.primaryColor}, ${aspect.primaryColor}DD)`,
+              background: `linear-gradient(to right, ${aspect.theme.primaryColor}, ${aspect.theme.primaryColor}DD)`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}
           >
-            {aspect.title}
+            {aspect.hero.title}
           </div>
           
           <div 
             className="code-text text-xl md:text-2xl lg:text-3xl text-black/70 max-w-4xl mx-auto leading-relaxed transition-all duration-700"
             style={{ transform: `translateY(${scrollY * -0.05}px)` }}
           >
-            {aspect.subtitle}
+            {aspect.hero.subtitle}
           </div>
         </div>
 
@@ -130,10 +102,10 @@ const Hero = () => {
             size="lg" 
             onClick={randomizeAspect}
             disabled={isAnimating}
-            className={`p-4 hover:scale-110 transition-all duration-300 shadow-lg ${aspect.glowColor} border-2 rounded-full`}
+            className={`p-4 hover:scale-110 transition-all duration-300 shadow-lg ${aspect.theme.glowColor} border-2 rounded-full`}
             style={{ 
-              backgroundColor: aspect.primaryColor,
-              borderColor: aspect.primaryColor,
+              backgroundColor: aspect.theme.primaryColor,
+              borderColor: aspect.theme.primaryColor,
               color: 'white',
               transform: `translateY(${scrollY * -0.02}px)`,
             }}
@@ -148,8 +120,8 @@ const Hero = () => {
                 size="lg"
                 className="font-mono border-2 hover:scale-105 transition-all duration-300 px-6"
                 style={{ 
-                  borderColor: aspect.primaryColor + '66',
-                  color: aspect.primaryColor,
+                  borderColor: aspect.theme.primaryColor + '66',
+                  color: aspect.theme.primaryColor,
                   transform: `translateY(${scrollY * -0.01}px)`
                 }}
               >
@@ -157,13 +129,13 @@ const Hero = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
-              {aspects.map((aspectOption, index) => (
+              {ASPECTS.map((aspectOption, index) => (
                 <DropdownMenuItem 
                   key={index}
                   onClick={() => selectAspect(index)}
                   className="cursor-pointer"
                 >
-                  {aspectOption.title}
+                  {aspectOption.hero.title}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -177,8 +149,8 @@ const Hero = () => {
             onClick={() => scrollToSection('about')}
             className="font-mono border-2 hover:scale-105 transition-all duration-300"
             style={{ 
-              borderColor: aspect.primaryColor + '66',
-              color: aspect.primaryColor,
+              borderColor: aspect.theme.primaryColor + '66',
+              color: aspect.theme.primaryColor,
               transform: `translateY(${scrollY * -0.01}px)`
             }}
           >
@@ -194,11 +166,11 @@ const Hero = () => {
           <div className="animate-bounce">
             <div 
               className="w-8 h-12 border-2 rounded-full flex justify-center relative transition-all duration-700"
-              style={{ borderColor: aspect.primaryColor + '66' }}
+              style={{ borderColor: aspect.theme.primaryColor + '66' }}
             >
               <div 
                 className="w-1 h-4 rounded-full mt-2 animate-pulse"
-                style={{ backgroundColor: aspect.primaryColor }}
+                style={{ backgroundColor: aspect.theme.primaryColor }}
               ></div>
             </div>
           </div>
