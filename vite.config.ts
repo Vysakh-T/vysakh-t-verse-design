@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 export default defineConfig(({ mode }) => ({
-  base: '/',
+  base: process.env.GITHUB_ACTIONS ? '/vysakh-t-verse-design/' : '/',
   server: {
     host: "::",
     port: 8080,
